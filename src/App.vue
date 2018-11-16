@@ -2,7 +2,9 @@
 	<golden-layout style="width:100%;height:100%;" :has-headers="false" :border-width="2">
 		<gl-row>
 			<gl-component :width="20" style="background-color:#F3F3F3;">
-				<multiselect v-model="query" :options="queryOptions" 
+				<multiselect 
+					v-model="query"
+					:options="queryOptions" 
 					tag-placeholder="Add this as new tag"
 					placeholder="Search or add a tag" 
 	  				label="Query" 
@@ -26,20 +28,24 @@
 </template>
 <script>
 import Vue from 'vue'
+
 import 'golden-layout/src/css/goldenlayout-light-theme.css'
+import vgl from 'vue-golden-layout'
+Vue.use(vgl);
+
 import 'tui-editor/dist/tui-editor.css'
 import 'tui-editor/dist/tui-editor-contents.css'
 import 'codemirror/lib/codemirror.css'
-import 'vue-multiselect/dist/vue-multiselect.min.css'
 import { Editor , Viewer} from '@toast-ui/vue-editor'
-import Multiselect from 'vue-multiselect'
 import 'tui-editor/dist/tui-editor-extChart.js'
 import 'tui-editor/dist/tui-editor-extScrollSync.js'
 import 'tui-editor/dist/tui-editor-extUML.js'
 import 'tui-editor/dist/tui-editor-extColorSyntax.js'
 import 'tui-editor/dist/tui-editor-extTable.js'
-import vgl from 'vue-golden-layout'
-Vue.use(vgl);
+
+import 'vue-multiselect/dist/vue-multiselect.min.css'
+import Multiselect from 'vue-multiselect'
+import PouchDB from 'pouchdb'
 
 export default {
 	components: {editor:Editor, viewer:Viewer, multiselect:Multiselect},
@@ -62,7 +68,7 @@ export default {
 			let tag = {
 				name: newTag, 
 				code: newTag
-			};
+			}
 			this.query.push(tag)
 			this.queryOptions.push(tag)
 		}
