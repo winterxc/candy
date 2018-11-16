@@ -1,7 +1,16 @@
 <template>
-	<golden-layout style="width:100%;height:100%;" :has-headers="false" :border-width="2">
+	<golden-layout class="full-size" :has-headers="true" :show-maximise-icon="false" :show-popout-icon="false" :border-width="2">
+		<template slot="box" slot-scope="{i}">
+			<editor 
+			  	v-model="home" 
+				:options="editorOptions" 
+				height="100%" 
+				preview-style="vertical" 
+				mode="wysiwyg" 
+				/>
+		</template>
 		<gl-row>
-			<gl-component :width="20" style="background-color:#F3F3F3;">
+			<gl-component :width="20" title="Navigation" class="sidebar" :closable="false">
 				<multiselect 
 					v-model="query"
 					:options="queryOptions" 
@@ -11,18 +20,14 @@
 					:multiple="true"
 	   				track-by="code"
 	   				@tag="addTag"
-					:taggable="true"></multiselect>
+					:taggable="true"/>
 			</gl-component>
-			<gl-component>
-				<golden-layout style="width:100%;height:100%;" :has-headers="true" :show-maximise-icon="false" :show-popout-icon="false" :border-width="2">
-					<template slot="box" slot-scope="{i}">
-						<editor v-model="home" :options="editorOptions" height="100%" preview-style="vertical" mode="wysiwyg" />
-					</template>
-					<gl-stack>
-						<gl-component v-for="i in [1,2,3,4]" :key="i" :title="'Test' + i" template="box" :state="{i}"/>
-					</gl-stack>
-				</golden-layout>
-			</gl-component>
+			<gl-stack>
+				<gl-component title="Home" :closable="false">
+					<h1>Home</h1>
+				</gl-component>
+				<gl-component v-for="i in [1,2,3,4]" :key="i" :title="'Test' + i" template="box" :state="{i}"/>
+			</gl-stack>
 		</gl-row>
 	</golden-layout>
 </template>
@@ -76,22 +81,40 @@ export default {
 }
 </script>
 <style lang="less">
-.glComponent {
+.full-size{
 	width: 100%;
 	height: 100%;
 	overflow: auto;
+
+	.sidebar {
+		background-color: white;
+	}
+
 	.tui-editor-defaultUI {
 		border-width: 0;
 		background: #F3F3F3;
 	}
+
 	.lm_header .lm_tab {
 		background: #F3F3F3;
 		&:hover, &.lm_active {
 			background: white;
 		}
 	}
+
 	.lm_content {
 		background: white;
+	}
+
+	.multiselect__tags {
+		border: 0;
+		border-radius: 0;
+	}
+
+	.glComponent {
+		width: 100%;
+		height: 100%;
+		overflow: auto;
 	}
 }
 </style>
