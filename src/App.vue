@@ -11,6 +11,9 @@
 		</template>
 		<gl-row>
 			<gl-component :width="20" title="Navigation" class="sidebar" :closable="false">
+				Navigation
+			</gl-component>
+			<gl-component :width="20" title="SearchBox" class="sidebar" :closable="false">
 				<multiselect 
 					v-model="query"
 					:options="queryOptions" 
@@ -57,12 +60,6 @@ export default {
 	data: function(){
 		return {
 			home: "Home",
-			query: [{ name: 'Javascript', code: 'js' }],
-			queryOptions: [
-				{ name: 'Vue.js', code: 'vu' },
-        		{ name: 'Javascript', code: 'js' },
-        		{ name: 'Open Source', code: 'os' }
-			],
 			editorOptions: {
 				exts: ['chart', 'uml', 'scrollSync', 'colorSyntac', 'table']
 			}
